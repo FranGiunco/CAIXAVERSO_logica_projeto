@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GreenMenu • Simulador de Pedido</title>
+  <meta name="description" content="Simulador de pedido: escolha produtos, calcule total, aplique cupom e veja o resumo." />
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./app.js" defer></script>
+
+<body>
+    <header class="topbar" role="banner">
+    <div class="topbar__inner">
+      <button class="icon-btn" id="btnMenu" aria-label="Abrir menu">
+        <!-- ícone hamburger -->
+        <span class="hamburger" aria-hidden="true"></span>
+      </button>
+
+      <nav class="topbar__nav" aria-label="Navegação principal">
+        <img src="./burger.png" width="30" height="30" alt="desenho de hambúrguer" class="nav__icon" aria-hidden="true" />
+        <a href="#cardapioMenu">Cardápio</a>
+        <a href="#categorias">Categorias</a>
+      
+      </nav>
+      <div class="topbar__logo" aria-label="Marca">
+        <div class="logoMark" aria-hidden="true">TB</div>
+        <div class="logoText">
+          <strong>TECHBURGUER</strong>
+          <small>pedido inteligente</small>
+        </div>
+      </div>
+
+      <div class="topbar__actions">
+        <div class="location">
+          <span class="pin" aria-hidden="true"> </span>
+          <div class="location__text">
+            <strong>Entrega ou retirada</strong>
+            <button class="linklike" id="btnLocal" type="button">
+              Escolher localização
+            </button>
+          </div>
+        </div>
+
+        <button class="pill pill--ghost" id="btnRegistrar" type="button">
+          Logar
+        </button>
+
+        <button class="pill pill--cart" id="btnCarrinho" type="button" aria-label="Abrir carrinho">
+           <span id="cartTotalTop">R$ 0,00</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO -->
+   <section>
+  <main class="container" role="main">
+    <section class="hero" id="sobre" aria-label="Introdução do projeto">
+      <div class="hero__content">
+        <h1>Simulador de Pedido</h1>
+        <p>
+          Escolha itens do <strong>cardápio</strong>, adicione ao <strong>carrinho</strong>,
+          aplique <strong>cupons</strong> e veja o <strong>resumo do pedido</strong>.
+        </p>
+        <div class="hero__chips" id="categorias" aria-label="Filtro de categorias">
+          <button class="chip is-selected" type="button" data-filter="todos">Todos</button>
+          <button class="chip" type="button" data-filter="lanche">Lanches</button>
+          <button class="chip" type="button" data-filter="bebida">Bebidas</button>
+          <button class="chip" type="button" data-filter="sobremesa">Sobremesas</button>
+        </div>
+      </div>
+
+      <div class="hero__stats" aria-label="Estatísticas do pedido">
+        <div class="stat">
+          <span class="stat__label">Itens no carrinho</span>
+          <span class="stat__value" id="statItens">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">Subtotal</span>
+          <span class="stat__value" id="statSubtotal">R$ 0,00</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">Desconto</span>
+          <span class="stat__value" id="statDesconto">R$ 0,00</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">Total</span>
+          <span class="stat__value" id="statTotal">R$ 0,00</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <!-- CARDÁPIO -->
+      <section class="panel" id="cardapio" aria-label="Lista de produtos do cardápio">
+        <header class="panel__header">
+          <h2>Cardápio</h2>
+          <p class="muted">Clique em “Adicionar” para colocar itens no carrinho.</p>
+        </header>
+
+        <div class="menu" id="listaCardapio" aria-live="polite"></div>
+      </section>
+
+      <!-- CARRINHO -->
+      <aside class="panel panel--sticky" aria-label="Carrinho do usuário">
+        <header class="panel__header">
+          <h2>Carrinho</h2>
+          <p class="muted">Revise itens, aplique cupom e finalize.</p>
+        </header>
+
+        <div class="cart" id="cartItens"></div>
+
+        <div class="coupon" id="cupons">
+          <label for="cupomInput">Cupom de desconto</label>
+          <div class="coupon__row">
+            <input id="cupomInput" type="text" placeholder="Ex: VERDE10" autocomplete="off" />
+            <button class="btn" id="btnAplicarCupom" type="button">Aplicar</button>
+          </div>
+          <p class="hint" id="cupomHint">
+            Cupons: <strong>VERDE10</strong> (10% acima de R$ 25) • <strong>FRETE0</strong> (R$ 8 off acima de R$ 40)
+          </p>
+          <p class="msg" id="cupomMsg" role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="totals">
+          <div class="row"><span>Subtotal</span><strong id="subtotalTxt">R$ 0,00</strong></div>
+          <div class="row"><span>Desconto</span><strong id="descontoTxt">R$ 0,00</strong></div>
+          <div class="row row--total"><span>Total</span><strong id="totalTxt">R$ 0,00</strong></div>
+          <button class="btn btn--primary" id="btnFinalizar" type="button">
+            Finalizar e gerar recibo
+          </button>
+          <button class="btn btn--ghost" id="btnLimpar" type="button">
+            Limpar carrinho
+          </button>
+        </div>
+
+        <div class="receipt">
+          <h3>Recibo</h3>
+          <pre id="recibo" aria-live="polite">Seu recibo aparecerá aqui…</pre>
+        </div>
+      </aside>
+    </section>
+  </main>
+  </section>
+  <footer class="footer">
+    <p>
+      Projeto de lógica com HTML + CSS + JavaScript • Arrays • Objetos • Funções • Repetição • Condicionais
+    </p>
+   
+    
+
+  </footer>
+</body>
+</html>
