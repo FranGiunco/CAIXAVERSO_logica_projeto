@@ -80,7 +80,7 @@ function exibirCardapio(filtroCategoria = "todos") {
       </div>
     `;
 
-        lista.appendChild(div);
+    lista.appendChild(div);
   });
 
   // eventos dos botões adicionar
@@ -192,7 +192,7 @@ function calcularDesconto(subtotal) {
   }
 
   //  cupom por tipo
-  if (cupomAplicado === "VERDE10") {
+  if (cupomAplicado === "VERDE10" && subtotal > 25) {
     desconto += 10;
   } else if (cupomAplicado === "FRETE0") {
     if (subtotal >= 40) {
@@ -201,6 +201,7 @@ function calcularDesconto(subtotal) {
       // não aplica desconto do FRETE0 se não cumprir regra
       // mensagem opcional (não trava o cálculo)
       setMensagem("Cupom FRETE0 só é válido para pedidos acima de R$40.", true);
+      setMensagem("Cupom VERDE10 só é válido para pedidos acima de R$50.", true);
     }
   }
 
@@ -228,7 +229,6 @@ function atualizarResumo() {
   if (elTotal) elTotal.textContent = moeda(totalFinal);
   if (elTopo) elTopo.textContent = moeda(totalFinal);
 
-  // stats do topo 
   const statItens = getEl("statItens");
   const statSubtotal = getEl("statSubtotal");
   const statDesconto = getEl("statDesconto");
@@ -267,9 +267,10 @@ function aplicarCupom() {
   }
 
   // regra opcional: só permite cupom se tiver algo no carrinho
-  if (subtotal <= 0) {
+  if (subtotal <= 25 && codigo === "VERDE10") {
     cupomAplicado = null;
-    setMensagem("Adicione itens no carrinho antes de aplicar cupom.", true);
+    setMensagem("Cupom VERDE10 só é válido para pedidos acima de R$25,00.", true);
+    
     atualizarResumo();
     return;
   }
