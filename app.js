@@ -1,7 +1,13 @@
 /* ============================
    PROJETO: SIMULADOR DE PEDIDO
    Objetos • Arrays • Funções
-   Repetição • Condicional
+   Repetição • Condicional 
+   GRUPO 5:
+      ANDREA SUGIMOTO
+      GENIEL 
+      RENATO VIEIRA
+      FRAN GIUNCO
+      JANNE MARY
    ============================ */
 
 /* ---------- TAREFA 1 ----------
