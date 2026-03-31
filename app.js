@@ -80,8 +80,7 @@ function exibirCardapio(filtroCategoria = "todos") {
       </div>
     `;
 
-    // ✅ ERRO corrigido: era lista.appendChild(item)
-    lista.appendChild(div);
+        lista.appendChild(div);
   });
 
   // eventos dos botões adicionar
@@ -229,7 +228,7 @@ function atualizarResumo() {
   if (elTotal) elTotal.textContent = moeda(totalFinal);
   if (elTopo) elTopo.textContent = moeda(totalFinal);
 
-  // stats do topo (se existirem no seu HTML)
+  // stats do topo 
   const statItens = getEl("statItens");
   const statSubtotal = getEl("statSubtotal");
   const statDesconto = getEl("statDesconto");
